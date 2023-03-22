@@ -215,7 +215,8 @@
 
         <div class="post-content">
             <p>本篇是参加Datawhale社区的组队学习李沐老师的《动手学深度学习（Pytorh版）》学习笔记，后续将逐步更新学习进度。</p>
-<h2 id="1-初识深度学习"><a href="#1-初识深度学习" class="headerlink" title="1 初识深度学习"></a>1 初识深度学习</h2><h3 id="1-1"><a href="#1-1" class="headerlink" title="1.1"></a>1.1</h3><h3 id="1-2-环境配置"><a href="#1-2-环境配置" class="headerlink" title="1.2 环境配置"></a>1.2 环境配置</h3><h2 id="2-预备知识"><a href="#2-预备知识" class="headerlink" title="2 预备知识"></a>2 预备知识</h2><h3 id="2-1-数据操作"><a href="#2-1-数据操作" class="headerlink" title="2.1 数据操作"></a>2.1 数据操作</h3><h3 id="2-2-数据预处理"><a href="#2-2-数据预处理" class="headerlink" title="2.2 数据预处理"></a>2.2 数据预处理</h3><h4 id="N维数组样例"><a href="#N维数组样例" class="headerlink" title="N维数组样例"></a>N维数组样例</h4><ul>
+<h2 id="1-初识深度学习"><a href="#1-初识深度学习" class="headerlink" title="1 初识深度学习"></a>1 初识深度学习</h2><h3 id="1-1"><a href="#1-1" class="headerlink" title="1.1"></a>1.1</h3><h3 id="1-2-环境配置"><a href="#1-2-环境配置" class="headerlink" title="1.2 环境配置"></a>1.2 环境配置</h3><h2 id="2-预备知识"><a href="#2-预备知识" class="headerlink" title="2 预备知识"></a>2 预备知识</h2><h3 id="2-1-数据操作"><a href="#2-1-数据操作" class="headerlink" title="2.1 数据操作"></a>2.1 数据操作</h3><ul>
+<li><h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><h5 id="N维数组样例"><a href="#N维数组样例" class="headerlink" title="N维数组样例"></a>N维数组样例</h5><ul>
 <li><p>N维数组是机器学习和神经网络的主要数据结构</p>
 <ul>
 <li>0-d(标量)：1.0，一个类别</li>
@@ -229,10 +230,7 @@
 <li><p>创建数组</p>
 <ul>
 <li>创建数组需要给定：形状（3×4矩阵）、每个元素的数据类型（32位浮点数）、每个元素的值，例如全是0或是随机数</li>
-</ul>
-</li>
-<li><p>元素访问</p>
-<ul>
+<li>元素访问<ul>
 <li>一个元素：[1,2]</li>
 <li>一行元素：[1,:]</li>
 <li>一列元素：[:,1]</li>
@@ -240,10 +238,28 @@
 <li>子区域：[::3,::2]</li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="数据操作"><a href="#数据操作" class="headerlink" title="数据操作"></a>数据操作</h4><p>通常，我们需要做两件重要的是：1）获取数据；2）将数据读取到计算机后进行处理。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入torch</span></span><br><span class="line"><span class="keyword">import</span> torch</span><br></pre></td></tr></table></figure>
+
+<p><strong>张量：</strong>表示一个由数值组成的数组，可能有多个维度。一个轴的张量对应数学上的<i>向量(vector)</i> ;具有两个轴的张量对应数学上的<i>矩阵(matrix)</i> ;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = torch.arange(<span class="number">12</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tensor([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11])</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2-2-数据预处理"><a href="#2-2-数据预处理" class="headerlink" title="2.2 数据预处理"></a>2.2 数据预处理</h3><ul>
+<li><p>- </p>
+</li>
+<li><p>- </p>
+</li>
 <li><p>常见的标准算术运算符(+、-、<em>、&#x2F;和</em>*)都可以被升级为按元素运算</p>
 </li>
 </ul>
-<p>‘’’Python<br>x &#x3D; torch.tensor([1.0, 2, 4, 8])<br>y &#x3D; torch.tensor([2, 2, 2, 2, ])<br>‘’’</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = torch.tensor([<span class="number">1.0</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">8</span>])</span><br><span class="line">y = torch.tensor([<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, ])</span><br><span class="line">x + y</span><br></pre></td></tr></table></figure>
+
 
         </div>
 

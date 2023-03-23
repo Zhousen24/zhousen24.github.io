@@ -215,7 +215,26 @@
 
         <div class="post-content">
             <p>本篇是参加Datawhale社区的组队学习李沐老师的《动手学深度学习（Pytorh版）》学习笔记，后续将逐步更新学习进度。</p>
-<h2 id="1-初识深度学习"><a href="#1-初识深度学习" class="headerlink" title="1 初识深度学习"></a>1 初识深度学习</h2><h3 id="1-1"><a href="#1-1" class="headerlink" title="1.1"></a>1.1</h3><h3 id="1-2-环境配置"><a href="#1-2-环境配置" class="headerlink" title="1.2 环境配置"></a>1.2 环境配置</h3><h2 id="2-预备知识"><a href="#2-预备知识" class="headerlink" title="2 预备知识"></a>2 预备知识</h2><h3 id="2-1-数据操作"><a href="#2-1-数据操作" class="headerlink" title="2.1 数据操作"></a>2.1 数据操作</h3><p><em>2023-03-22 22:28:49</em></p>
+<h2 id="1-初识深度学习"><a href="#1-初识深度学习" class="headerlink" title="1 初识深度学习"></a>1 初识深度学习</h2><h3 id="1-1"><a href="#1-1" class="headerlink" title="1.1"></a>1.1</h3><h3 id="1-2-环境配置"><a href="#1-2-环境配置" class="headerlink" title="1.2 环境配置"></a>1.2 环境配置</h3><p>运行环境：Unbuntu18.04(虚拟机)</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install build-essentia</span><br></pre></td></tr></table></figure>
+
+<p>安装miniconda</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget ‘miniconda下载链接&#x27;</span><br><span class="line">bash Miniconda3-latest-Linux-x86<span class="built_in">_</span>64.sh</span><br><span class="line">bash</span><br></pre></td></tr></table></figure>
+
+<p>Jupyter notebook安装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install jupyter d2l torch torchvision</span><br></pre></td></tr></table></figure>
+
+<p>下载 D2L Notebook</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wget https://zh-v2.d2l.ai/d2l-zh.zip</span><br><span class="line"></span><br><span class="line"><span class="params">#</span> 安装zip</span><br><span class="line">sudo apt install zip</span><br><span class="line"><span class="params">#</span> 解压d2l-zh.zip</span><br><span class="line">unzip d2l-zh.zip</span><br><span class="line">cd pytorch</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="params">#</span> 进入jupyter notebook</span><br><span class="line">jupyter notebook</span><br></pre></td></tr></table></figure>
+
+<p>远程主机映射8888端口到本地，出现以下错误警告，且本地无法访问<a target="_blank" rel="noopener" href="http://localhost:8889/%EF%BC%8C%E5%9C%A8Ubuntu%E8%AE%BE%E7%BD%AE%E4%BA%86%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B9%9F%E4%B8%8D%E8%A1%8C">http://localhost:8889/，在Ubuntu设置了端口转发也不行</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zl@192 ~ % ssh -L8888:localhost:8888 pyvip@127.0.0.1</span><br><span class="line">ssh: connect to host 127.0.0.1 port 22: Connection refused</span><br></pre></td></tr></table></figure>
+
+<p>解决办法：</p>
+<p><img src="/image/image-20230323132431628.png" alt="image-20230323132431628"></p>
+<h2 id="2-预备知识"><a href="#2-预备知识" class="headerlink" title="2 预备知识"></a>2 预备知识</h2><h3 id="2-1-数据操作"><a href="#2-1-数据操作" class="headerlink" title="2.1 数据操作"></a>2.1 数据操作</h3><p><em>2023-03-22 22:28:49</em></p>
 <h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><h5 id="N维数组样例"><a href="#N维数组样例" class="headerlink" title="N维数组样例"></a>N维数组样例</h5><ul>
 <li><p>N维数组是机器学习和神经网络的主要数据结构</p>
 <ul>
@@ -292,7 +311,17 @@
 
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tensor([[0, 1],</span><br><span class="line">        [1, 2],</span><br><span class="line">        [2, 3]])</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h5 id="索引和切片"><a href="#索引和切片" class="headerlink" title="索引和切片"></a>索引和切片</h5><h5 id="节省内存"><a href="#节省内存" class="headerlink" title="节省内存"></a>节省内存</h5><h5 id="转换为其他Python对象"><a href="#转换为其他Python对象" class="headerlink" title="转换为其他Python对象"></a>转换为其他Python对象</h5><h3 id="2-2-数据预处理"><a href="#2-2-数据预处理" class="headerlink" title="2.2 数据预处理"></a>2.2 数据预处理</h3>
+<h5 id="索引和切片"><a href="#索引和切片" class="headerlink" title="索引和切片"></a>索引和切片</h5><h5 id="节省内存"><a href="#节省内存" class="headerlink" title="节省内存"></a>节省内存</h5><h5 id="转换为其他Python对象"><a href="#转换为其他Python对象" class="headerlink" title="转换为其他Python对象"></a>转换为其他Python对象</h5><p>张量tensor→NumPy张量(ndarray)，torch张量和numpy数组将共享底层内存。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A = X.numpy()</span><br><span class="line">B = torch.tensor(A)</span><br><span class="line"><span class="built_in">type</span>(A), <span class="built_in">type</span>(B)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(numpy.ndarray, torch.Tensor)</span><br></pre></td></tr></table></figure>
+
+<p>要将大小为1的张量转换为Python标量，我们可以调用<code>item</code>函数或Python的内置函数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = torch.tensor([<span class="number">3.5</span>])</span><br><span class="line">a, a.item(), <span class="built_in">float</span>(a), <span class="built_in">int</span>(a)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(tensor([3.5000]), 3.5, 3.5, 3)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-数据预处理"><a href="#2-2-数据预处理" class="headerlink" title="2.2 数据预处理"></a>2.2 数据预处理</h3>
         </div>
 
         

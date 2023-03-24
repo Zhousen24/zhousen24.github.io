@@ -232,8 +232,13 @@
 <p>远程主机映射8888端口到本地，出现以下错误警告，且本地无法访问<a target="_blank" rel="noopener" href="http://localhost:8889/%EF%BC%8C%E5%9C%A8Ubuntu%E8%AE%BE%E7%BD%AE%E4%BA%86%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E4%B9%9F%E4%B8%8D%E8%A1%8C">http://localhost:8889/，在Ubuntu设置了端口转发也不行</a></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zl@192 ~ % ssh -L8888:localhost:8888 pyvip@127.0.0.1</span><br><span class="line">ssh: connect to host 127.0.0.1 port 22: Connection refused</span><br></pre></td></tr></table></figure>
 
+<img src="image/image-20230323155016400.png" alt="image-20230323155016400" style="zoom: 50%;" />
+
+<img src="image/image-20230323155211839.png" alt="image-20230323155211839" style="zoom: 50%;" />
+
+
+
 <p>解决办法：</p>
-<p><img src="/image/image-20230323132431628.png" alt="image-20230323132431628"></p>
 <h2 id="2-预备知识"><a href="#2-预备知识" class="headerlink" title="2 预备知识"></a>2 预备知识</h2><h3 id="2-1-数据操作"><a href="#2-1-数据操作" class="headerlink" title="2.1 数据操作"></a>2.1 数据操作</h3><p><em>2023-03-22 22:28:49</em></p>
 <h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><h5 id="N维数组样例"><a href="#N维数组样例" class="headerlink" title="N维数组样例"></a>N维数组样例</h5><ul>
 <li><p>N维数组是机器学习和神经网络的主要数据结构</p>
@@ -311,7 +316,32 @@
 
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tensor([[0, 1],</span><br><span class="line">        [1, 2],</span><br><span class="line">        [2, 3]])</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h5 id="索引和切片"><a href="#索引和切片" class="headerlink" title="索引和切片"></a>索引和切片</h5><h5 id="节省内存"><a href="#节省内存" class="headerlink" title="节省内存"></a>节省内存</h5><h5 id="转换为其他Python对象"><a href="#转换为其他Python对象" class="headerlink" title="转换为其他Python对象"></a>转换为其他Python对象</h5><p>张量tensor→NumPy张量(ndarray)，torch张量和numpy数组将共享底层内存。</p>
+<h5 id="索引和切片"><a href="#索引和切片" class="headerlink" title="索引和切片"></a>索引和切片</h5><p>访问：张量的元素通过索引访问。第一个元素索引为0，最后一个元素索引为-1。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X[-<span class="number">1</span>], X[<span class="number">1</span>:<span class="number">3</span>]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(tensor([ 8.,  9., 10., 11.]),</span><br><span class="line"> tensor([[ 4.,  5.,  6.,  7.],</span><br><span class="line">         [ 8.,  9., 10., 11.]]))</span><br></pre></td></tr></table></figure>
+
+<p>改：指定索引来讲元素写入矩阵</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X[<span class="number">1</span>, <span class="number">2</span>] = <span class="number">9</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tensor([[ 0.,  1.,  2.,  3.],</span><br><span class="line">        [ 4.,  5.,  9.,  7.],</span><br><span class="line">        [ 8.,  9., 10., 11.]])</span><br></pre></td></tr></table></figure>
+
+<h5 id="节省内存"><a href="#节省内存" class="headerlink" title="节省内存"></a>节省内存</h5><p><em><strong>运行一些操作可能会导致为新结果分配内存</strong></em>，例如<code>Y = X + Y</code>，取消引用<code>Y</code>指向的张量，而是指向新分配的内存处的张量。</p>
+<ul>
+<li>首先，不必要地分配内存，原地执行更新；</li>
+<li>不原地更新，其他引用仍然会指向旧的内存位置，可能造成某些代码可能无意中引用旧的参数；</li>
+</ul>
+<p><strong>可以使用切片表示法将操作的结果分配给先前分配的数组，例如<code>Y[ : ] = &lt;expression&gt;</code></strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Z = torch.zeros_like(Y)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;id(Z):&#x27;</span>, <span class="built_in">id</span>(Z))</span><br><span class="line">Z[:] = X + Y</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;id(Z):&#x27;</span>, <span class="built_in">id</span>(Z))</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">id(Z): 139931132035296</span><br><span class="line">id(Z): 139931132035296</span><br></pre></td></tr></table></figure>
+
+<p>[<strong>如果在后续计算中没有重复使用<code>X</code>， 我们也可以使用<code>X[:] = X + Y</code>或<code>X += Y</code>来减少操作的内存开销。</strong>]</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">before = <span class="built_in">id</span>(X)</span><br><span class="line">X += Y</span><br><span class="line"><span class="built_in">id</span>(X) == before</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="转换为其他Python对象"><a href="#转换为其他Python对象" class="headerlink" title="转换为其他Python对象"></a>转换为其他Python对象</h5><p>张量tensor→NumPy张量(ndarray)，torch张量和numpy数组将共享底层内存。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A = X.numpy()</span><br><span class="line">B = torch.tensor(A)</span><br><span class="line"><span class="built_in">type</span>(A), <span class="built_in">type</span>(B)</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(numpy.ndarray, torch.Tensor)</span><br></pre></td></tr></table></figure>

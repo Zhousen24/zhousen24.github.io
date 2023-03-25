@@ -361,14 +361,22 @@
 <h5 id="转换为张量格式"><a href="#转换为张量格式" class="headerlink" title="转换为张量格式"></a>转换为张量格式</h5><p>所有条码都是数值类型的，可以转换为张量格式。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line">X, Y = torch.tensor(inputs.values), torch.tensor(outputs.values)</span><br><span class="line">X, Y</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-3-线性代数"><a href="#2-3-线性代数" class="headerlink" title="2.3 线性代数"></a>2.3 线性代数</h3><p><strong>标量</strong></p>
-<ul>
+<h3 id="2-3-线性代数"><a href="#2-3-线性代数" class="headerlink" title="2.3 线性代数"></a>2.3 线性代数</h3><h4 id="标量"><a href="#标量" class="headerlink" title="标量"></a><strong>标量</strong></h4><ul>
 <li>简单操作<br>$$<br>c &#x3D; a + b\c &#x3D; a · b\c &#x3D; sina<br>$$</li>
 </ul>
-<p><strong>向量</strong></p>
-<ul>
-<li>简单操作</li>
-</ul>
+<h4 id="向量"><a href="#向量" class="headerlink" title="向量"></a><strong>向量</strong></h4><p>​		向量表示数据样本时，具有一定的现实意义。比如预测贷款违约风险，可以将每个申请人与一个向量相关联，其分量与收入、工作年限、过往违约次数和其他因素对应。在数学表示法中，向量通常记为粗体小写符号。</p>
+<p><strong>长度、维度和形状</strong></p>
+<p>​		$\mathbf{x}\in\mathbb{R}^n$，向量的长度通常称为向量的<em>维度</em>，可以调用Python的内置<code>len()</code>函数来访问<strong>张量的长度</strong>，当用张量表示一个向量是，可以通过&#96;.shape属性访问向量的长度。</p>
+<h4 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h4><p>​		矩阵，通常用粗体大写字母表示，如$\mathbf{X}$、$\mathbf{Y}$和$\mathbf{Z}$，在代码中表示为具有两个轴的张量。$\mathbf{A} \in \mathbb{R}^{m \times n}$，矩阵$\mathbf{A}$由m行和n列的实值标量组成。任意的$\mathbf{A}$可以视为一个表格。</p>
+<p>​															$$\mathbf{A}&#x3D;\begin{bmatrix} a_{11} &amp; a_{12} &amp; \cdots &amp; a_{1n} \ a_{21} &amp; a_{22} &amp; \cdots &amp; a_{2n} \ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \ a_{m1} &amp; a_{m2} &amp; \cdots &amp; a_{mn} \ \end{bmatrix}.$$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A = torch.arange(<span class="number">20</span>).reshape(<span class="number">5</span>, <span class="number">4</span>)</span><br><span class="line">A</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tensor([[ 0,  1,  2,  3],</span><br><span class="line">        [ 4,  5,  6,  7],</span><br><span class="line">        [ 8,  9, 10, 11],</span><br><span class="line">        [12, 13, 14, 15],</span><br><span class="line">        [16, 17, 18, 19]])</span><br></pre></td></tr></table></figure>
+
+<p><strong>矩阵转置</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A.T</span><br></pre></td></tr></table></figure>
+
+<h4 id="张量"><a href="#张量" class="headerlink" title="张量"></a>张量</h4><p>​		张量是描述具体有任意数量轴的n为数组的通用方法。向量是一阶张量，矩阵是二阶张量。张量用特殊字体的大写字母表示$\mathsf{X}$、$\mathsf{Y}$和$\mathsf{Z}$。</p>
 
         </div>
 
